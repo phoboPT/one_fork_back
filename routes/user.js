@@ -1,15 +1,15 @@
 const express = require('express')
 const router = express.Router()
-const db = require('../config/database')
+
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken");
-const userPermission = require('../verifications/userPermissions')
+const userPermission = require('../verifications/userPermissions');
+const User = require('../models/User');
 
-const Model = require('../models/User')
 
 router.get('/', (req, res) => {
     try {
-        const user = Model.findAll()
+        const user = User.findAll()
         res.status(200).send(user)
     } catch (error) {
         res.status(400).send(error)
@@ -18,7 +18,7 @@ router.get('/', (req, res) => {
 
 router.get('/id/:id', async (req, res) => {
     try {
-        const user = await Model.findByPk(req.params.id)
+        const user = await User.findByPk(req.params.id)
         res.json({ data: user })
     } catch (error) {
         res.json({ error: error })
@@ -26,17 +26,13 @@ router.get('/id/:id', async (req, res) => {
 })
 
 router.post('/create', async (req, res) => {
-    const { name, surname, email, password, organization, address, locale, zipcode, fiscalNumber } = req.body
+    const { name, email, password, address, fiscalNumber } = req.body
     try {
-        const user = await Model.create({
+        const user = await User.create({
             name: name,
-            surname: surname,
             email: email,
             password: bcrypt.hashSync(password, 10),
-            organization: organization,
             address: address,
-            locale: locale,
-            zipcode: zipcode,
             fiscalNumber: fiscalNumber
         })
 
@@ -44,7 +40,7 @@ router.post('/create', async (req, res) => {
 
         req.session = { jwt: token }
         res.json({ data: token })
-    } catch (error) {
+    } catch (err) {
         res.json({ error: err })
     }
 })
@@ -76,7 +72,7 @@ router.put('/update', async (req, res) => {
             zipcode: zipcode,
             fiscalNumber: fiscalNumber
         }
-        const userUpdated = await Model.update(data,
+        const userUpdated = await User.update(data,
             {
                 where: {
                     id: userId
@@ -102,7 +98,7 @@ router.delete('/delete', async (req, res) => {
             res.status(400).json({ error: "Administrator permission is required!" })
         }
 
-        const userDeleted = await Model.destroy({
+        const userDeleted = await User.destroy({
             where: {
                 id: id
             },
@@ -121,7 +117,7 @@ router.delete('/delete', async (req, res) => {
 router.post('/login', async (req, res) => {
     const { email, password } = req.body
     try {
-        const user = await Model.findOne({
+        const user = await User.findOne({
             where: {
                 email: email
             }
@@ -156,7 +152,7 @@ router.post('/me', async (req, res) => {
         if (!userId) {
             res.status(401).json({ error: "Invalid token" })
         }
-        const user = await Model.findByPk(userID.id)
+        const user = await User.findByPk(userID.id)
         res.json({ data: user })
 
     } catch (error) {

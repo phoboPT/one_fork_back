@@ -12,10 +12,6 @@ const User = db.define('User', {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    surname: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
     email: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -41,26 +37,14 @@ const User = db.define('User', {
         allowNull: false,
         defaultValue: 'USER',
     },
-    address: {
-        type: DataTypes.STRING,
-        allowNull: true,
-    },
-    locale: {
-        type: DataTypes.STRING,
-        allowNull: true,
-    },
-    zipcode: {
-        type: DataTypes.STRING,
-        allowNull: true,
-    },
     fiscalNumber: {
         type: DataTypes.INTEGER,
         allowNull: true,
         unique: true
     },
 },
-   // { freezeTableName: true }
-   )
-    //User.sync({alter: true})
-   
+    // { freezeTableName: true }
+)
+//User.sync({ alter: true })
+
 module.exports = User
