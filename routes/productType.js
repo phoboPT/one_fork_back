@@ -1,7 +1,6 @@
 const express = require('express');
 const ProductType = require('../models/ProductType');
 const router = express.Router()
-const Table = require('../models/Table');
 
 
 router.get('/', (req, res) => {

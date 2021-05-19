@@ -1,9 +1,8 @@
 const { DataTypes } = require('sequelize');
 const db = require('../config/database');
-const OrderLine = require('./Order');
+const Order = require('./Order');
 const OrderState = require('./OrderState');
 const Product = require('./Product');
-const Order = require('./Table');
 
 const OrderLine = db.define('OrderLine', {
     id: {
@@ -12,7 +11,7 @@ const OrderLine = db.define('OrderLine', {
         defaultValue: DataTypes.UUIDV4
     },
     idOrder: {
-        type: DataTypes.STRING,
+        type: DataTypes.UUID,
         allowNull: false,
         references: {
             model: Order,
@@ -20,7 +19,7 @@ const OrderLine = db.define('OrderLine', {
         }
     },
     idProduct: {
-        type: DataTypes.STRING,
+        type: DataTypes.UUID,
         allowNull: false,
         references: {
             model: Product,
@@ -28,7 +27,7 @@ const OrderLine = db.define('OrderLine', {
         }
     },
     quantity: {
-        type: DataTypes.NUMBER,
+        type: DataTypes.INTEGER,
         allowNull: false
     },
     value: {
@@ -40,19 +39,16 @@ const OrderLine = db.define('OrderLine', {
         allowNull: false
     },
     state: {
-        type: DataTypes.FLOAT,
+        type: DataTypes.UUID,
         allowNull: false,
         references: {
             model: OrderState,
             key: 'id'
         }
     }
-
-
-
 },
 )
 
-//   OrganizationType.sync({force: true})
+//OrderLine.sync({ force: true })
 
 module.exports = OrderLine

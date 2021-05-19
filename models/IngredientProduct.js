@@ -1,6 +1,7 @@
 const { DataTypes } = require('sequelize');
 const db = require('../config/database');
 const Ingredient = require('./Ingredient');
+const Product = require('./Product');
 
 const IngredientProduct = db.define('IngredientProduct', {
     id: {
@@ -9,7 +10,7 @@ const IngredientProduct = db.define('IngredientProduct', {
         defaultValue: DataTypes.UUIDV4
     },
     idIngredient: {
-        type: DataTypes.STRING,
+        type: DataTypes.UUID,
         allowNull: false,
         references: {
             model: Ingredient,
@@ -17,7 +18,7 @@ const IngredientProduct = db.define('IngredientProduct', {
         }
     },
     idProduct: {
-        type: DataTypes.STRING,
+        type: DataTypes.UUID,
         allowNull: true,
         references: {
             model: Product,
@@ -27,6 +28,6 @@ const IngredientProduct = db.define('IngredientProduct', {
 },
 )
 
-//   OrganizationType.sync({force: true})
+// IngredientProduct.sync({ force: true })
 
 module.exports = IngredientProduct

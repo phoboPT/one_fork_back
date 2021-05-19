@@ -13,7 +13,7 @@ const Tax = db.define('Tax', {
         unique: true
     },
     value: {
-        type: DataTypes.float,
+        type: DataTypes.FLOAT,
         allowNull: true,
     },
 },

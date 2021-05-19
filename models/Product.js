@@ -1,7 +1,8 @@
 const { DataTypes } = require('sequelize');
 const db = require('../config/database');
-const Product = require('./IngredientProduct');
-const Taxes = require('./Tax');
+const Tax = require('./Tax');
+const ProductType = require('./ProductType');
+const Restaurant = require('./Restaurant');
 
 const Product = db.define('Product', {
     id: {
@@ -10,10 +11,10 @@ const Product = db.define('Product', {
         defaultValue: DataTypes.UUIDV4
     },
     productType: {
-        type: DataTypes.STRING,
+        type: DataTypes.UUID,
         allowNull: false,
         references: {
-            model: Product,
+            model: ProductType,
             key: 'id'
         }
     },
@@ -26,15 +27,15 @@ const Product = db.define('Product', {
         allowNull: false
     },
     tax: {
-        type: DataTypes.STRING,
+        type: DataTypes.UUID,
         allowNull: false,
         references: {
-            model: Taxes,
+            model: Tax,
             key: 'id'
         }
     },
     idRestaurant: {
-        type: DataTypes.STRING,
+        type: DataTypes.UUID,
         allowNull: false,
         references: {
             model: Restaurant,
@@ -44,6 +45,6 @@ const Product = db.define('Product', {
 },
 )
 
-//   OrganizationType.sync({force: true})
+// Product.sync({ force: true })
 
 module.exports = Product

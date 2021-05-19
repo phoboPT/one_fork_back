@@ -10,7 +10,7 @@ const ProductRestaurant = db.define('ProductRestaurant', {
         defaultValue: DataTypes.UUIDV4
     },
     idProduct: {
-        type: DataTypes.STRING,
+        type: DataTypes.UUID,
         allowNull: false,
         references: {
             model: Product,
@@ -18,7 +18,7 @@ const ProductRestaurant = db.define('ProductRestaurant', {
         }
     },
     idRestaurant: {
-        type: DataTypes.STRING,
+        type: DataTypes.UUID,
         allowNull: false,
         references: {
             model: Restaurant,
@@ -28,6 +28,6 @@ const ProductRestaurant = db.define('ProductRestaurant', {
 },
 )
 
-//   ProductRestaurant.sync({force: true})
+// ProductRestaurant.sync({ force: true })
 
 module.exports = ProductRestaurant

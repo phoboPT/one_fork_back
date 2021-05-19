@@ -9,7 +9,7 @@ const Table = db.define('Table', {
         defaultValue: DataTypes.UUIDV4
     },
     idRestaurant: {
-        type: DataTypes.STRING,
+        type: DataTypes.UUID,
         allowNull: false,
         references: {
             model: Restaurant,
@@ -24,9 +24,6 @@ const Table = db.define('Table', {
         type: DataTypes.STRING,
         allowNull: false
     },
-
-
-
 },
 )
 

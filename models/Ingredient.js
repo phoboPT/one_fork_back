@@ -19,6 +19,6 @@ const Ingredient = db.define('Ingredient', {
 },
 )
 
-Ingredient.sync({ force: true })
+//Ingredient.sync({ force: true })
 
 module.exports = Ingredient

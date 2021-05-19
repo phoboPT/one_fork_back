@@ -1,11 +1,11 @@
 const express = require('express');
-const Ingredient = require('../models/Ingredient');
+const ProductRestaurant = require('../models/ProductRestaurant');
 const router = express.Router()
 
 
 router.get('/', async (req, res) => {
     try {
-        const user = await Ingredient.findAll()
+        const user = await ProductRestaurant.findAll()
         res.status(200).send(user)
     } catch (error) {
         res.status(400).send(error)
@@ -14,7 +14,7 @@ router.get('/', async (req, res) => {
 
 router.get('/id/:id', async (req, res) => {
     try {
-        const user = await Ingredient.findByPk(req.params.id)
+        const user = await ProductRestaurant.findByPk(req.params.id)
         res.json({ data: user })
     } catch (error) {
         res.json({ error: error })

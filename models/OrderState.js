@@ -19,6 +19,6 @@ const OrderState = db.define('OrderState', {
 },
 )
 
-//   OrganizationType.sync({force: true})
+// OrderState.sync({ force: true })
 
 module.exports = OrderState
