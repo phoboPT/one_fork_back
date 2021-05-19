@@ -7,9 +7,9 @@ const userPermission = require('../verifications/userPermissions');
 const User = require('../models/User');
 
 
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
     try {
-        const user = User.findAll()
+        const user = await User.findAll()
         res.status(200).send(user)
     } catch (error) {
         res.status(400).send(error)
