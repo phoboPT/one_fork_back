@@ -1,7 +1,6 @@
 const { DataTypes } = require('sequelize');
 const db = require('../config/database');
 const Order = require('./Order');
-const OrderState = require('./OrderState');
 const Product = require('./Product');
 
 const OrderLine = db.define('OrderLine', {
@@ -41,10 +40,6 @@ const OrderLine = db.define('OrderLine', {
     state: {
         type: DataTypes.UUID,
         allowNull: false,
-        references: {
-            model: OrderState,
-            key: 'id'
-        }
     }
 },
 )

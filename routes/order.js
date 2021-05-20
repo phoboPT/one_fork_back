@@ -22,16 +22,64 @@ router.get('/id/:id', async (req, res) => {
 })
 
 router.post('/create', async (req, res) => {
+    const { idUser, idTable, totalValue, totalValueTAx, state } = req.body
 
+    Order.create({
+        idUser: idUser,
+        idTable: idTable,
+        totalValue: totalValue, 
+        totalValueTAx: totalValueTAx, 
+        state: state
+    })
+        .then(status => res.json({ data: status }))
+        .catch(err => res.send(err))
 })
 
 router.put('/update', async (req, res) => {
+    const { id, idUser, idTable, totalValue, totalValueTAx, state } = req.body
 
+    if (id == undefined || id == "") {
+        res.json({ error: "Error! An id must be provided!" })
+    }
+
+    const data = {
+        idUser: idUser,
+        idTable: idTable,
+        totalValue: totalValue, 
+        totalValueTAx: totalValueTAx, 
+        state: state
+    }
+
+    Order.update(data,
+        {
+            where: {
+                id: id
+            },
+        })
+        .then(status => {
+            status == 1
+                ? res.json({ data: "Updated sucessfuly" })
+                : res.json({ error: "Error! Data cannot be updated!" })
+        })
+        .catch(err => console.log(err))
 })
 
 router.delete('/delete', async (req, res) => {
+    const { id } = req.body
 
+    Order.destroy({
+        where: {
+            id: id
+        },
+    })
+        .then(status => {
+            status == 1
+                ? res.json({ data: "Deleted sucessfuly" })
+                : res.json({ error: "Error! Data cannot be deleted!" })
+        })
+        .catch(err => res.json({ error: "Error! Data cannot be deleted!", err: err }))
 })
+
 
 
 
