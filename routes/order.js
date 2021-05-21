@@ -27,8 +27,8 @@ router.post('/create', async (req, res) => {
     Order.create({
         idUser: idUser,
         idTable: idTable,
-        totalValue: totalValue, 
-        totalValueTAx: totalValueTAx, 
+        totalValue: totalValue,
+        totalValueTAx: totalValueTAx,
         state: state
     })
         .then(status => res.json({ data: status }))
@@ -45,8 +45,8 @@ router.put('/update', async (req, res) => {
     const data = {
         idUser: idUser,
         idTable: idTable,
-        totalValue: totalValue, 
-        totalValueTAx: totalValueTAx, 
+        totalValue: totalValue,
+        totalValueTAx: totalValueTAx,
         state: state
     }
 
@@ -56,6 +56,7 @@ router.put('/update', async (req, res) => {
                 id: id
             },
         })
+
         .then(status => {
             status == 1
                 ? res.json({ data: "Updated sucessfuly" })
