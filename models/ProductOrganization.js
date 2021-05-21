@@ -1,9 +1,9 @@
 const { DataTypes } = require('sequelize');
 const db = require('../config/database');
 const Product = require('./Product');
-const Restaurant = require('./Restaurant');
+const Organization = require('./Organization');
 
-const ProductRestaurant = db.define('ProductRestaurant', {
+const ProductOrganization = db.define('ProductOrganization', {
     id: {
         type: DataTypes.UUID,
         primaryKey: true,
@@ -17,17 +17,17 @@ const ProductRestaurant = db.define('ProductRestaurant', {
             key: 'id'
         }
     },
-    idRestaurant: {
+    idOrganization: {
         type: DataTypes.UUID,
         allowNull: false,
         references: {
-            model: Restaurant,
+            model: Organization,
             key: 'id'
         }
     }
 },
 )
 
-// ProductRestaurant.sync({ force: true })
+// ProductOrganization.sync({ force: true })
 
-module.exports = ProductRestaurant
+module.exports = ProductOrganization

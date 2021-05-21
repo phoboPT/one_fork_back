@@ -1,11 +1,11 @@
 const express = require('express');
-const RestaurantType = require('../models/RestaurantType');
+const ProductOrganization = require('../models/ProductOrganization');
 const router = express.Router()
 
 
 router.get('/', async (req, res) => {
     try {
-        const user = await RestaurantType.findAll()
+        const user = await ProductOrganization.findAll()
         res.status(200).send(user)
     } catch (error) {
         res.status(400).send(error)
@@ -14,7 +14,7 @@ router.get('/', async (req, res) => {
 
 router.get('/id/:id', async (req, res) => {
     try {
-        const user = await RestaurantType.findByPk(req.params.id)
+        const user = await ProductOrganization.findByPk(req.params.id)
         res.json({ data: user })
     } catch (error) {
         res.json({ error: error })
@@ -22,29 +22,29 @@ router.get('/id/:id', async (req, res) => {
 })
 
 router.post('/create', async (req, res) => {
-    const { name, description } = req.body
+    const { idProduct, idOrganization } = req.body
 
-    RestaurantType.create({
-        name: name,
-        description: description,
+    ProductOrganization.create({
+        idProduct: idProduct,
+        idOrganization: idOrganization,
     })
         .then(status => res.json({ data: status }))
         .catch(err => res.send(err))
 })
 
 router.put('/update', async (req, res) => {
-    const { id, name, description } = req.body
+    const { id, idProduct, idOrganization } = req.body
 
     if (id == undefined || id == "") {
         res.json({ error: "Error! An id must be provided!" })
     }
 
     const data = {
-        name: name,
-        description: description,
+        idProduct: idProduct,
+        idOrganization: idOrganization,
     }
 
-    RestaurantType.update(data,
+    ProductOrganization.update(data,
         {
             where: {
                 id: id
@@ -61,7 +61,7 @@ router.put('/update', async (req, res) => {
 router.delete('/delete', async (req, res) => {
     const { id } = req.body
 
-    RestaurantType.destroy({
+    ProductOrganization.destroy({
         where: {
             id: id
         },

@@ -2,7 +2,7 @@ const { DataTypes } = require('sequelize');
 const db = require('../config/database');
 const Tax = require('./Tax');
 const ProductType = require('./ProductType');
-const Restaurant = require('./Restaurant');
+const Organization = require('./Organization');
 
 const Product = db.define('Product', {
     id: {
@@ -34,11 +34,11 @@ const Product = db.define('Product', {
             key: 'id'
         }
     },
-    idRestaurant: {
+    idOrganization: {
         type: DataTypes.UUID,
         allowNull: false,
         references: {
-            model: Restaurant,
+            model: Organization,
             key: 'id'
         }
     }

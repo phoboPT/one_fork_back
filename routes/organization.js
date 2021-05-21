@@ -4,12 +4,12 @@ const db = require('../config/database')
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken");
 const userPermission = require('../verifications/userPermissions');
-const Restaurant = require('../models/Restaurant');
+const Organization = require('../models/Organization');
 
 
 router.get('/', async (req, res) => {
     try {
-        const user = await Restaurant.findAll()
+        const user = await Organization.findAll()
         res.status(200).send(user)
     } catch (error) {
         res.status(400).send(error)
@@ -18,7 +18,7 @@ router.get('/', async (req, res) => {
 
 router.get('/id/:id', async (req, res) => {
     try {
-        const user = await Restaurant.findByPk(req.params.id)
+        const user = await Organization.findByPk(req.params.id)
         res.json({ data: user })
     } catch (error) {
         res.json({ error: error })
@@ -26,10 +26,10 @@ router.get('/id/:id', async (req, res) => {
 })
 
 router.post('/create', async (req, res) => {
-    const { restaurantType, name, address, gpsLocation, celphone, phone, nif } = req.body
+    const { organizationType, name, address, gpsLocation, celphone, phone, nif } = req.body
 
-    Restaurant.create({
-        restaurantType: restaurantType,
+    Organization.create({
+        organizationType: organizationType,
         name: name,
         address: address,
         gpsLocation: gpsLocation,
@@ -42,14 +42,14 @@ router.post('/create', async (req, res) => {
 })
 
 router.put('/update', async (req, res) => {
-    const { id, restaurantType, name, address, gpsLocation, celphone, phone, nif } = req.body
+    const { id, organizationType, name, address, gpsLocation, celphone, phone, nif } = req.body
 
     if (id == undefined || id == "") {
         res.json({ error: "Error! An id must be provided!" })
     }
 
     const data = {
-        restaurantType: restaurantType,
+        organizationType: organizationType,
         name: name,
         address: address,
         gpsLocation: gpsLocation,
@@ -58,7 +58,7 @@ router.put('/update', async (req, res) => {
         nif: nif
     }
 
-    Restaurant.update(data,
+    Organization.update(data,
         {
             where: {
                 id: id
@@ -75,7 +75,7 @@ router.put('/update', async (req, res) => {
 router.delete('/delete', async (req, res) => {
     const { id } = req.body
 
-    Restaurant.destroy({
+    Organization.destroy({
         where: {
             id: id
         },
