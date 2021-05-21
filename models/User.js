@@ -1,7 +1,6 @@
 const { DataTypes, Sequelize } = require('sequelize');
 const db = require('../config/database');
 
-
 const User = db.define('User', {
     id: {
         type: DataTypes.UUID,
@@ -42,6 +41,7 @@ const User = db.define('User', {
         allowNull: true,
         unique: true
     },
+
 },
     // { freezeTableName: true }
 )

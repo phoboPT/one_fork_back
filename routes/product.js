@@ -22,55 +22,62 @@ router.get('/id/:id', async (req, res) => {
         })
 
 
-        res.json({ data: user })
+        res.status(200).send({ data: user })
     } catch (error) {
-        res.json({ error: error })
+        res.status(400).send({ error: error })
     }
 })
 
 router.post('/create', async (req, res) => {
     const { productType, name, description, tax, idRestaurant } = req.body
 
+    try {
+        const produt = await Product.create({
+            productType: productType,
+            name: name,
+            description: description,
+            tax: tax,
+            idRestaurant: idRestaurant,
+        })
+        res.status(200).send({ data: produt })
+    } catch (error) {
 
-    Product.create({
-        productType: productType,
-        name: name,
-        description: description,
-        tax: tax,
-        idRestaurant: idRestaurant,
-    })
-        .then(status => res.json({ data: status }))
-        .catch(err => res.send(err))
+        res.status(400).send({ error: error })
+    }
+
 })
 
 router.put('/update', async (req, res) => {
     const { id, productType, name, description, tax, idRestaurant } = req.body
+    try {
+        if (id == undefined || id == "") {
+            res.status(401).send({ error: "Error! An id must be provided!" })
+        }
+        const data = {
+            productType: productType,
+            name: name,
+            description: description,
+            tax: tax,
+            idRestaurant: idRestaurant,
+        }
 
-    if (id == undefined || id == "") {
-        res.json({ error: "Error! An id must be provided!" })
+        const productUpdated = await Product.update(data,
+            {
+                where: {
+                    id: id
+                },
+            })
+
+        if (productUpdated === 1) {
+
+            res.status(200).send({ data: "Updated sucessfuly" })
+        }
+        res.status(400).send({ error: "Error! Data cannot be updated!" })
+    } catch (error) {
+        res.status(400).send({ error: "Error! Data cannot be updated!" })
     }
-
-    const data = {
-        productType: productType,
-        name: name,
-        description: description,
-        tax: tax,
-        idRestaurant: idRestaurant,
-    }
-
-    Product.update(data,
-        {
-            where: {
-                id: id
-            },
-        })
-        .then(status => {
-            status == 1
-                ? res.json({ data: "Updated sucessfuly" })
-                : res.json({ error: "Error! Data cannot be updated!" })
-        })
-        .catch(err => console.log(err))
 })
+
 
 router.delete('/delete', async (req, res) => {
     const { id } = req.body
