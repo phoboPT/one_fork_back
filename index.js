@@ -4,6 +4,7 @@ const bodyParser = require('body-parser')
 const path = require('path')
 const cors = require("cors");
 const cookieSession = require('cookie-session');
+
 //Database
 const db = require('./config/database')
 const dotenv = require('dotenv');
@@ -26,10 +27,12 @@ app.use(
 );
 
 app.get('/', (req, res) => res.send('INDEX'));
+
 //group
 
 app.use('/api/ingredient', require('./routes/ingredient'))
 app.use('/api/ingredientProduct', require('./routes/ingredientProduct'))
+app.use('/api/menu', require('./routes/menu'))
 app.use('/api/order', require('./routes/order'))
 app.use('/api/orderLine', require('./routes/orderLine'))
 app.use('/api/product', require('./routes/product'))
