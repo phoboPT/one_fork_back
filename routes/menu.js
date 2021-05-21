@@ -1,13 +1,13 @@
 const express = require('express');
-const ProductRestaurant = require('../models/ProductRestaurant');
+const ProductOrganization = require('../models/ProductOrganization');
 const router = express.Router()
 
 router.get('/:id', async (req, res) => {
     const { id } = req.params
     try {
-        const products = await ProductRestaurant.findAll({
+        const products = await ProductOrganization.findAll({
             where: {
-                idRestaurant: id
+                idOrganization: id
             }
         })
 
