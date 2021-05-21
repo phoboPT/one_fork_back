@@ -3,9 +3,9 @@ const RestaurantType = require('../models/RestaurantType');
 const router = express.Router()
 
 
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
     try {
-        const user = RestaurantType.findAll()
+        const user = await RestaurantType.findAll()
         res.status(200).send(user)
     } catch (error) {
         res.status(400).send(error)
