@@ -80,9 +80,4 @@ router.delete('/delete', async (req, res) => {
         .catch(err => res.json({ error: "Error! Data cannot be deleted!", err: err }))
 })
 
-
-
-
-
-
 module.exports = router
