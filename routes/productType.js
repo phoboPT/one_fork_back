@@ -3,9 +3,9 @@ const ProductType = require('../models/ProductType');
 const router = express.Router()
 
 
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
     try {
-        const user = ProductType.findAll()
+        const user = await ProductType.findAll()
         console.log(user)
         res.status(200).send(user)
     } catch (error) {

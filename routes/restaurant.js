@@ -7,9 +7,9 @@ const userPermission = require('../verifications/userPermissions');
 const Restaurant = require('../models/Restaurant');
 
 
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
     try {
-        const user = Restaurant.findAll()
+        const user = await Restaurant.findAll()
         res.status(200).send(user)
     } catch (error) {
         res.status(400).send(error)

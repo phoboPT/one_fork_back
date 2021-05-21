@@ -3,9 +3,9 @@ const router = express.Router()
 const Table = require('../models/Table');
 
 
-router.get('/', (req, res) => {
+router.get('/', async(req, res) => {
     try {
-        const user = Table.findAll()
+        const user = await Table.findAll()
         res.status(200).send(user)
     } catch (error) {
         res.status(400).send(error)
