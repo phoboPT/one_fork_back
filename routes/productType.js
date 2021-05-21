@@ -6,6 +6,7 @@ const router = express.Router()
 router.get('/', (req, res) => {
     try {
         const user = ProductType.findAll()
+        console.log(user)
         res.status(200).send(user)
     } catch (error) {
         res.status(400).send(error)
