@@ -1,13 +1,13 @@
 {
-  "name": "galinhas",
+  "name": "One_Fork",
   "version": "1.0.0",
-  "description": "Projeto de Investigação ",
+  "description": "Computação Mobile",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js"
   },
-  "author": "Ricardo Dias",
+  "author": "Alunos ESTG",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.0.1",
