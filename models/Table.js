@@ -1,6 +1,6 @@
 const { DataTypes } = require('sequelize');
 const db = require('../config/database');
-const Restaurant = require('./Restaurant');
+const Restaurant = require('./Organization');
 
 const Table = db.define('Table', {
     id: {
@@ -8,7 +8,7 @@ const Table = db.define('Table', {
         primaryKey: true,
         defaultValue: DataTypes.UUIDV4
     },
-    idRestaurant: {
+    idOrganization: {
         type: DataTypes.UUID,
         allowNull: false,
         references: {
@@ -27,6 +27,6 @@ const Table = db.define('Table', {
 },
 )
 
-//Table.sync({ force: true })
+// Table.sync({ force: true })
 
 module.exports = Table

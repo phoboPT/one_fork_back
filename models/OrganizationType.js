@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 const db = require('../config/database')
 
-const RestaurantType = db.define('ResturantType', {
+const OrganizationType = db.define('OrganizationType', {
     id: {
         type: DataTypes.UUID,
         primaryKey: true,
@@ -19,6 +19,6 @@ const RestaurantType = db.define('ResturantType', {
 },
 )
 
-//RestaurantType.sync({ force: true })
+// OrganizationType.sync({ force: true })
 
-module.exports = RestaurantType
+module.exports = OrganizationType

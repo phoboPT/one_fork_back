@@ -1,11 +1,15 @@
-const express = require('express');
-const RestaurantType = require('../models/RestaurantType');
+const express = require('express')
 const router = express.Router()
+const db = require('../config/database')
+const bcrypt = require("bcrypt")
+const jwt = require("jsonwebtoken");
+const userPermission = require('../verifications/userPermissions');
+const Organization = require('../models/Organization');
 
 
 router.get('/', async (req, res) => {
     try {
-        const user = await RestaurantType.findAll()
+        const user = await Organization.findAll()
         res.status(200).send(user)
     } catch (error) {
         res.status(400).send(error)
@@ -14,7 +18,7 @@ router.get('/', async (req, res) => {
 
 router.get('/id/:id', async (req, res) => {
     try {
-        const user = await RestaurantType.findByPk(req.params.id)
+        const user = await Organization.findByPk(req.params.id)
         res.json({ data: user })
     } catch (error) {
         res.json({ error: error })
@@ -22,29 +26,39 @@ router.get('/id/:id', async (req, res) => {
 })
 
 router.post('/create', async (req, res) => {
-    const { name, description } = req.body
+    const { organizationType, name, address, gpsLocation, celphone, phone, nif } = req.body
 
-    RestaurantType.create({
+    Organization.create({
+        organizationType: organizationType,
         name: name,
-        description: description,
+        address: address,
+        gpsLocation: gpsLocation,
+        celphone: celphone,
+        phone: phone,
+        nif: nif
     })
         .then(status => res.json({ data: status }))
         .catch(err => res.send(err))
 })
 
 router.put('/update', async (req, res) => {
-    const { id, name, description } = req.body
+    const { id, organizationType, name, address, gpsLocation, celphone, phone, nif } = req.body
 
     if (id == undefined || id == "") {
         res.json({ error: "Error! An id must be provided!" })
     }
 
     const data = {
+        organizationType: organizationType,
         name: name,
-        description: description,
+        address: address,
+        gpsLocation: gpsLocation,
+        celphone: celphone,
+        phone: phone,
+        nif: nif
     }
 
-    RestaurantType.update(data,
+    Organization.update(data,
         {
             where: {
                 id: id
@@ -61,7 +75,7 @@ router.put('/update', async (req, res) => {
 router.delete('/delete', async (req, res) => {
     const { id } = req.body
 
-    RestaurantType.destroy({
+    Organization.destroy({
         where: {
             id: id
         },
@@ -73,9 +87,5 @@ router.delete('/delete', async (req, res) => {
         })
         .catch(err => res.json({ error: "Error! Data cannot be deleted!", err: err }))
 })
-
-
-
-
 
 module.exports = router
