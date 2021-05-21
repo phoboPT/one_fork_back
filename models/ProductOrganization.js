@@ -24,10 +24,14 @@ const ProductOrganization = db.define('ProductOrganization', {
             model: Organization,
             key: 'id'
         }
+    },
+    quantity: {
+        type: DataTypes.INTEGER,
+        allowNull: false
     }
 },
 )
 
-// ProductOrganization.sync({ force: true })
+// ProductOrganization.sync({ alter: true })
 
 module.exports = ProductOrganization

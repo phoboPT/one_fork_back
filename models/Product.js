@@ -36,7 +36,7 @@ const Product = db.define('Product', {
     },
     idOrganization: {
         type: DataTypes.UUID,
-        allowNull: false,
+        allowNull: true,
         references: {
             model: Organization,
             key: 'id'

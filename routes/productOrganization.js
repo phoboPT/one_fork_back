@@ -22,18 +22,19 @@ router.get('/id/:id', async (req, res) => {
 })
 
 router.post('/create', async (req, res) => {
-    const { idProduct, idOrganization } = req.body
+    const { idProduct, idOrganization, quantity } = req.body
 
     ProductOrganization.create({
         idProduct: idProduct,
         idOrganization: idOrganization,
+        quantity: quantity,
     })
         .then(status => res.json({ data: status }))
         .catch(err => res.send(err))
 })
 
 router.put('/update', async (req, res) => {
-    const { id, idProduct, idOrganization } = req.body
+    const { id, idProduct, idOrganization, quantity } = req.body
 
     if (id == undefined || id == "") {
         res.json({ error: "Error! An id must be provided!" })
@@ -42,6 +43,7 @@ router.put('/update', async (req, res) => {
     const data = {
         idProduct: idProduct,
         idOrganization: idOrganization,
+        quantity: quantity,
     }
 
     ProductOrganization.update(data,
