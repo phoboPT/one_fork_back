@@ -24,9 +24,13 @@ const Organization = db.define('Organization', {
         type: DataTypes.STRING,
         allowNull: false
     },
-    gpsLocation: {
+    latLocation: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true
+    },
+    longLocation: {
+        type: DataTypes.STRING,
+        allowNull: true
     },
     celphone: {
         type: DataTypes.INTEGER,
@@ -44,6 +48,6 @@ const Organization = db.define('Organization', {
 },
 )
 
-// Organization.sync({ force: true })
+// Organization.sync({ alter: true })
 
 module.exports = Organization
