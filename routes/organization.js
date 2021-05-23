@@ -1,9 +1,5 @@
 const express = require('express')
 const router = express.Router()
-const db = require('../config/database')
-const bcrypt = require("bcrypt")
-const jwt = require("jsonwebtoken");
-const userPermission = require('../verifications/userPermissions');
 const Organization = require('../models/Organization');
 
 
@@ -26,13 +22,14 @@ router.get('/id/:id', async (req, res) => {
 })
 
 router.post('/create', async (req, res) => {
-    const { organizationType, name, address, gpsLocation, celphone, phone, nif } = req.body
+    const { organizationType, name, address, latLocation, longLocation, celphone, phone, nif } = req.body
 
     Organization.create({
         organizationType: organizationType,
         name: name,
         address: address,
-        gpsLocation: gpsLocation,
+        latLocation: latLocation,
+        longLocation: longLocation,
         celphone: celphone,
         phone: phone,
         nif: nif
@@ -42,7 +39,7 @@ router.post('/create', async (req, res) => {
 })
 
 router.put('/update', async (req, res) => {
-    const { id, organizationType, name, address, gpsLocation, celphone, phone, nif } = req.body
+    const { id, organizationType, name, address, latLocation, longLocation, celphone, phone, nif } = req.body
 
     if (id == undefined || id == "") {
         res.json({ error: "Error! An id must be provided!" })
@@ -52,7 +49,8 @@ router.put('/update', async (req, res) => {
         organizationType: organizationType,
         name: name,
         address: address,
-        gpsLocation: gpsLocation,
+        latLocation: latLocation,
+        longLocation: longLocation,
         celphone: celphone,
         phone: phone,
         nif: nif
