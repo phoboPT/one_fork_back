@@ -19,8 +19,13 @@ router.get('/', async (req, res) => {
 })
 
 router.get('/id/:id', async (req, res) => {
+    const { id } = req.params.id
     try {
-        const user = await User.findByPk(req.params.id)
+        const user = await User.findOne({
+            where: {
+                id: id
+            }
+        })
         res.json({ data: user })
     } catch (error) {
         res.json({ error: error })
@@ -143,18 +148,22 @@ router.post('/login', async (req, res) => {
     }
 })
 
-router.post('/me', async (req, res) => {
-    if (!req.body.token) {
-        res.json({ error: "No Token" })
-    }
-    let userID;
+router.get('/me', async (req, res) => {
+    const jwtToken = req.session.jwt
+    let userID
     try {
-        userID = jwt.verify(req.body.token, process.env.JWT_SECRET);
-
-        if (!userId) {
+        userID = jwt.verify(jwtToken, process.env.JWT_SECRET);
+        if (!userID) {
             res.status(401).json({ error: "Invalid token" })
         }
-        const user = await User.findByPk(userID.id)
+
+        const user = await User.findOne({
+            where: {
+                id: userID.id
+            }, attributes: ['id', 'name', "email", "permission", "fiscalNumber", "createdAt", "updatedAt"]
+        })
+
+        console.log(user)
         res.json({ data: user })
 
     } catch (error) {
