@@ -1,20 +1,11 @@
 const { DataTypes } = require('sequelize');
 const db = require('../config/database');
-const Restaurant = require('./Organization');
 
 const Table = db.define('Table', {
     id: {
         type: DataTypes.UUID,
         primaryKey: true,
         defaultValue: DataTypes.UUIDV4
-    },
-    idOrganization: {
-        type: DataTypes.UUID,
-        allowNull: false,
-        references: {
-            model: Restaurant,
-            key: 'id'
-        }
     },
     name: {
         type: DataTypes.STRING,
@@ -27,6 +18,7 @@ const Table = db.define('Table', {
 },
 )
 
-// Table.sync({ force: true })
+
+//Table.sync({ alter: true })
 
 module.exports = Table

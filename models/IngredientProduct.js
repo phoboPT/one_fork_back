@@ -28,6 +28,8 @@ const IngredientProduct = db.define('IngredientProduct', {
 },
 )
 
+
+
 // IngredientProduct.sync({ force: true })
 
 module.exports = IngredientProduct

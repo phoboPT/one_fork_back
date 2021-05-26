@@ -11,7 +11,6 @@ router.get('/', async (req, res) => {
     try {
         const user = await User.findAll({ attributes: ['id', 'name', "email", "permission", "fiscalNumber", "createdAt", "updatedAt"] })
 
-
         res.status(200).send(user)
     } catch (error) {
         res.status(400).send(error)
@@ -143,7 +142,7 @@ router.post('/login', async (req, res) => {
             res.status(401).json({ error: "Invalid email or password!" })
         }
     } catch (error) {
-        console.log(error);
+
         res.status(401).json({ error: error })
     }
 })
@@ -154,20 +153,18 @@ router.get('/me', async (req, res) => {
     try {
         userID = jwt.verify(jwtToken, process.env.JWT_SECRET);
         if (!userID) {
-            res.status(401).json({ error: "Invalid token" })
+            res.status(401).send({ error: "Invalid token" })
         }
-
         const user = await User.findOne({
             where: {
                 id: userID.id
             }, attributes: ['id', 'name', "email", "permission", "fiscalNumber", "createdAt", "updatedAt"]
         })
 
-        console.log(user)
-        res.json({ data: user })
+        res.status(200).send({ data: user })
 
     } catch (error) {
-        res.json({ error: error })
+        res.status(401).send({ error: error })
     }
 
 })

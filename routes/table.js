@@ -1,12 +1,15 @@
-const express = require('express')
+const express = require('express');
+const Organization = require('../models/Organization');
 const router = express.Router()
 const Table = require('../models/Table');
 
 
-router.get('/', async(req, res) => {
+router.get('/', async (req, res) => {
     try {
-        const user = await Table.findAll()
-        res.status(200).send(user)
+        const table = await Table.findAll({ include: Organization })
+
+
+        res.status(200).send(table)
     } catch (error) {
         res.status(400).send(error)
     }
@@ -14,30 +17,34 @@ router.get('/', async(req, res) => {
 
 router.get('/id/:id', async (req, res) => {
     try {
-        const user = await Table.findByPk(req.params.id)
-        res.json({ data: user })
+        const table = await Table.findByPk(req.params.id)
+        res.status(200).send({ data: table })
     } catch (error) {
-        res.json({ error: error })
+        rres.status(400).send({ error: error })
     }
 })
 
 router.post('/create', async (req, res) => {
-    const { idOrganization, name, description } = req.body
+    const { OrganizationId, name, description } = req.body
+    try {
+        const table = await Table.create({
+            OrganizationId: OrganizationId,
+            name: name,
+            description: description,
+        })
 
-    Table.create({
-        idOrganization: idOrganization,
-        name: name,
-        description: description,
-    })
-        .then(status => res.json({ data: status }))
-        .catch(err => res.send(err))
+
+        res.status(200).send({ data: table })
+    } catch (error) {
+        res.status(400).send({ error: error })
+    }
 })
 
 router.put('/update', async (req, res) => {
     const { id, idOrganization, name, description } = req.body
 
     if (id == undefined || id == "") {
-        res.json({ error: "Error! An id must be provided!" })
+        res.status(400).send({ error: "Error! An id must be provided!" })
     }
 
     const data = {
@@ -45,19 +52,23 @@ router.put('/update', async (req, res) => {
         name: name,
         description: description,
     }
+    try {
 
-    Table.update(data,
-        {
-            where: {
-                id: id
-            },
-        })
-        .then(status => {
-            status == 1
-                ? res.json({ data: "Updated sucessfuly" })
-                : res.json({ error: "Error! Data cannot be updated!" })
-        })
-        .catch(err => console.log(err))
+        const table = await Table.update(data,
+            {
+                where: {
+                    id: id
+                },
+            })
+
+        table == 1
+            ? res.status(200).send({ data: "Updated sucessfuly" })
+            : res.status(400).send({ error: "Error! Data cannot be updated!" })
+
+    } catch (error) {
+
+        res.status(200).send(err)
+    }
 })
 
 router.delete('/delete', async (req, res) => {
