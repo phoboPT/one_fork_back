@@ -41,10 +41,13 @@ const User = db.define('User', {
         allowNull: true,
         unique: true
     },
+    image: {
+        type: DataTypes.STRING
+    }
 
 },
     // { freezeTableName: true }
 )
-//User.sync({ alter: true })
+// User.sync({ alter: true })
 
 module.exports = User

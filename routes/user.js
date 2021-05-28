@@ -9,7 +9,7 @@ const User = require('../models/User');
 
 router.get('/', async (req, res) => {
     try {
-        const user = await User.findAll({ attributes: ['id', 'name', "email", "permission", "fiscalNumber", "createdAt", "updatedAt"] })
+        const user = await User.findAll({ attributes: ['id', 'name', "email", "permission", "fiscalNumber", "image", "createdAt", "updatedAt"] })
 
         res.status(200).send(user)
     } catch (error) {
@@ -32,14 +32,15 @@ router.get('/id/:id', async (req, res) => {
 })
 
 router.post('/create', async (req, res) => {
-    const { name, email, password, address, fiscalNumber } = req.body
+    const { name, email, password, address, fiscalNumber, image } = req.body
     try {
         const user = await User.create({
             name: name,
             email: email,
             password: bcrypt.hashSync(password, 10),
             address: address,
-            fiscalNumber: fiscalNumber
+            fiscalNumber: fiscalNumber,
+            image: image
         })
 
         const token = jwt.sign({ id: user.id, }, process.env.JWT_SECRET)
@@ -52,7 +53,7 @@ router.post('/create', async (req, res) => {
 })
 
 router.put('/update', async (req, res) => {
-    const { token, id, name, surname, email, password, active, permission, organization, address, locale, zipcode, fiscalNumber } = req.body
+    const { token, id, name, surname, email, password, active, permission, organization, address, locale, zipcode, fiscalNumber, image } = req.body
     try {
         if (!token) {
             return res.json({ error: "Token must be provided!" })
@@ -76,7 +77,8 @@ router.put('/update', async (req, res) => {
             address: address,
             locale: locale,
             zipcode: zipcode,
-            fiscalNumber: fiscalNumber
+            fiscalNumber: fiscalNumber,
+            image: image
         }
         const userUpdated = await User.update(data,
             {
