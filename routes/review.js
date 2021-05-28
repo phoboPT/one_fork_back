@@ -21,6 +21,15 @@ router.get('/id/:id', async (req, res) => {
     }
 })
 
+router.get('/idOrganization/:id', async (req, res) => {
+    try {
+        const user = await Review.findOne({ where: { idOrganization: req.params.id } })
+        res.json({ data: user })
+    } catch (error) {
+        res.json({ error: error })
+    }
+})
+
 router.post('/create', async (req, res) => {
     const { idOrganization, idUser, title, description, rating, image } = req.body
 
