@@ -23,7 +23,7 @@ router.get('/id/:id', async (req, res) => {
 
 router.get('/idOrganization/:id', async (req, res) => {
     try {
-        const user = await Review.findOne({ where: { idOrganization: req.params.id } })
+        const user = await Review.findAll({ where: { idOrganization: req.params.id } })
         res.json({ data: user })
     } catch (error) {
         res.json({ error: error })
