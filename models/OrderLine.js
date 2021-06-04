@@ -22,8 +22,8 @@ const OrderLine = db.define('OrderLine', {
         allowNull: false
     },
     state: {
-        type: DataTypes.UUID,
-        allowNull: false,
+        type: DataTypes.STRING,
+        allowNull: true,
     }
 },
 )

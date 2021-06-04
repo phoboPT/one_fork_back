@@ -22,11 +22,11 @@ router.get('/id/:id', async (req, res) => {
 })
 
 router.post('/create', async (req, res) => {
-    const { idOrder, idProduct, quantity, value, valueTax, state } = req.body
+    const { OrderId, ProductId, quantity, value, valueTax, state } = req.body
 
     OrderLine.create({
-        idOrder: idOrder,
-        idProduct: idProduct,
+        OrderId: OrderId,
+        ProductId: ProductId,
         quantity: quantity,
         value: value,
         valueTax: valueTax,
@@ -37,15 +37,15 @@ router.post('/create', async (req, res) => {
 })
 
 router.put('/update', async (req, res) => {
-    const { id, idOrder, idProduct, quantity, value, valueTax, state } = req.body
+    const { id, OrderId, ProductId, quantity, value, valueTax, state } = req.body
 
     if (id == undefined || id == "") {
         res.json({ error: "Error! An id must be provided!" })
     }
 
     const data = {
-        idOrder: idOrder,
-        idProduct: idProduct,
+        OrderId: OrderId,
+        ProductId: ProductId,
         quantity: quantity,
         value: value,
         valueTax: valueTax,
