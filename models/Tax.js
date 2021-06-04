@@ -19,6 +19,6 @@ const Tax = db.define('Tax', {
 },
 )
 
-//Tax.sync({ force: true })
+// Tax.sync({ alter: true })
 
 module.exports = Tax

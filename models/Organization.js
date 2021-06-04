@@ -9,14 +9,6 @@ const Organization = db.define('Organization', {
         primaryKey: true,
         defaultValue: DataTypes.UUIDV4
     },
-    organizationType: {
-        type: DataTypes.UUID,
-        allowNull: false,
-        references: {
-            model: OrganizationType,
-            key: 'id'
-        }
-    },
     name: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -49,12 +41,11 @@ const Organization = db.define('Organization', {
 },
 )
 
-Organization.hasMany(Table)
 
-Table.belongsTo(Organization)
+Organization.belongsTo(OrganizationType)
+OrganizationType.hasMany(Organization)
 
-//Organization.sync({ force: true })
-//Table.sync({ force: true })
+// Organization.sync({ force: true })
 
 
 module.exports = Organization

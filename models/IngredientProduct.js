@@ -28,6 +28,8 @@ const IngredientProduct = db.define('IngredientProduct', {
 },
 )
 
+Ingredient.belongsToMany(Product, { through: IngredientProduct })
+
 
 
 // IngredientProduct.sync({ force: true })

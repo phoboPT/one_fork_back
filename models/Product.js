@@ -10,14 +10,14 @@ const Product = db.define('Product', {
         primaryKey: true,
         defaultValue: DataTypes.UUIDV4
     },
-    productType: {
-        type: DataTypes.UUID,
-        allowNull: false,
-        references: {
-            model: ProductType,
-            key: 'id'
-        }
-    },
+    // productType: {
+    //     type: DataTypes.UUID,
+    //     allowNull: false,
+    //     references: {
+    //         model: ProductType,
+    //         key: 'id'
+    //     }
+    // },
     name: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -34,16 +34,14 @@ const Product = db.define('Product', {
             key: 'id'
         }
     },
-    idOrganization: {
-        type: DataTypes.UUID,
-        allowNull: true,
-        references: {
-            model: Organization,
-            key: 'id'
-        }
-    }
 },
 )
+
+Product.belongsTo(ProductType)
+ProductType.hasMany(Product)
+
+Product.belongsTo(Organization)
+Organization.hasMany(Product)
 
 // Product.sync({ force: true })
 

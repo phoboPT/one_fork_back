@@ -9,22 +9,6 @@ const OrderLine = db.define('OrderLine', {
         primaryKey: true,
         defaultValue: DataTypes.UUIDV4
     },
-    idOrder: {
-        type: DataTypes.UUID,
-        allowNull: false,
-        references: {
-            model: Order,
-            key: 'id'
-        }
-    },
-    idProduct: {
-        type: DataTypes.UUID,
-        allowNull: false,
-        references: {
-            model: Product,
-            key: 'id'
-        }
-    },
     quantity: {
         type: DataTypes.INTEGER,
         allowNull: false
@@ -44,6 +28,12 @@ const OrderLine = db.define('OrderLine', {
 },
 )
 
-//OrderLine.sync({ force: true })
+OrderLine.belongsTo(Order)
+Order.hasMany(OrderLine)
+
+OrderLine.belongsTo(Product)
+Product.hasMany(OrderLine)
+
+// OrderLine.sync({ force: true })
 
 module.exports = OrderLine

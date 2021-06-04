@@ -18,6 +18,6 @@ const ProductType = db.define('ProductType', {
     },
 },
 )
-//ProductType.sync({ force: true })
+// ProductType.sync({ force: true })
 
 module.exports = ProductType

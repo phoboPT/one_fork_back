@@ -19,6 +19,6 @@ const Table = db.define('Table', {
 )
 
 
-//Table.sync({ alter: true })
+// Table.sync({ alter: true })
 
 module.exports = Table

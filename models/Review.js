@@ -9,22 +9,6 @@ const Review = db.define('Review', {
         primaryKey: true,
         defaultValue: DataTypes.UUIDV4
     },
-    idOrganization: {
-        type: DataTypes.UUID,
-        allowNull: false,
-        references: {
-            model: Organization,
-            key: 'id'
-        }
-    },
-    idUser: {
-        type: DataTypes.UUID,
-        allowNull: false,
-        references: {
-            model: User,
-            key: 'id'
-        }
-    },
     title: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -43,6 +27,11 @@ const Review = db.define('Review', {
     }
 },
 )
+Review.belongsTo(Organization)
+Organization.hasMany(Review)
+
+Review.belongsTo(User)
+User.hasMany(Review)
 
 // Review.sync({ alter: true })
 
