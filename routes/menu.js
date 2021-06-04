@@ -15,8 +15,7 @@ router.get('/:id', async (req, res) => {
         
         let dados = []
         request.map((valores) => {
-            dados.push(valores.Product
-            )
+            dados.push(valores.Product)
          
         })
         
