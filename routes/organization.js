@@ -22,10 +22,10 @@ router.get('/id/:id', async (req, res) => {
 })
 
 router.post('/create', async (req, res) => {
-    const { organizationType, name, address, latLocation, longLocation, celphone, phone, nif } = req.body
+    const { OrganizationTypeId, name, address, latLocation, longLocation, celphone, phone, nif } = req.body
 
     Organization.create({
-        organizationType: organizationType,
+        OrganizationTypeId: OrganizationTypeId,
         name: name,
         address: address,
         latLocation: latLocation,
@@ -39,14 +39,14 @@ router.post('/create', async (req, res) => {
 })
 
 router.put('/update', async (req, res) => {
-    const { id, organizationType, name, address, latLocation, longLocation, celphone, phone, nif } = req.body
+    const { id, OrganizationTypeId, name, address, latLocation, longLocation, celphone, phone, nif } = req.body
 
     if (id == undefined || id == "") {
         res.json({ error: "Error! An id must be provided!" })
     }
 
     const data = {
-        organizationType: organizationType,
+        OrganizationTypeId: OrganizationTypeId,
         name: name,
         address: address,
         latLocation: latLocation,

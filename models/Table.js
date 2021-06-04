@@ -1,5 +1,6 @@
 const { DataTypes } = require('sequelize');
 const db = require('../config/database');
+const Organization = require('./Organization');
 
 const Table = db.define('Table', {
     id: {
@@ -18,7 +19,10 @@ const Table = db.define('Table', {
 },
 )
 
+// Table.belongsTo(Organization)
+// Organization.hasMany(Table)
 
-// Table.sync({ alter: true })
+
+// Table.sync({ force: true }) 
 
 module.exports = Table

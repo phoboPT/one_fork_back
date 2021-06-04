@@ -5,10 +5,10 @@ const Table = require('../models/Table');
 
 
 router.get('/', async (req, res) => {
+    console.log("entra")
     try {
-        const table = await Table.findAll({ include: Organization })
-
-
+        const table = await Table.findAll()
+        
         res.status(200).send(table)
     } catch (error) {
         res.status(400).send(error)

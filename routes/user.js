@@ -9,7 +9,7 @@ const User = require('../models/User');
 
 router.get('/', async (req, res) => {
     try {
-        const user = await User.findAll({ attributes: ['id', 'name', "email", "permission", "fiscalNumber", "image", "createdAt", "updatedAt"] })
+        const user = await User.findAll() //{ attributes: ['id', 'name', "email", "permission", "fiscalNumber", "image", "createdAt", "updatedAt"] }
 
         res.status(200).send(user)
     } catch (error) {

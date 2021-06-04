@@ -9,22 +9,22 @@ const IngredientProduct = db.define('IngredientProduct', {
         primaryKey: true,
         defaultValue: DataTypes.UUIDV4
     },
-    idIngredient: {
-        type: DataTypes.UUID,
-        allowNull: false,
-        references: {
-            model: Ingredient,
-            key: 'id'
-        }
-    },
-    idProduct: {
-        type: DataTypes.UUID,
-        allowNull: true,
-        references: {
-            model: Product,
-            key: 'id'
-        }
-    },
+    // idIngredient: {
+    //     type: DataTypes.UUID,
+    //     allowNull: false,
+    //     references: {
+    //         model: Ingredient,
+    //         key: 'id'
+    //     }
+    // },
+    // idProduct: {
+    //     type: DataTypes.UUID,
+    //     allowNull: true,
+    //     references: {
+    //         model: Product,
+    //         key: 'id'
+    //     }
+    // },
 },
 )
 
@@ -32,6 +32,6 @@ Ingredient.belongsToMany(Product, { through: IngredientProduct })
 
 
 
-// IngredientProduct.sync({ force: true })
+// IngredientProduct.sync({ force: true }) 
 
 module.exports = IngredientProduct

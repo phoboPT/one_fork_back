@@ -30,6 +30,6 @@ User.hasMany(Order)
 Order.belongsTo(Table)
 Table.hasMany(Order)
 
-// Order.sync({ force: true })
+// Order.sync({ force: true }) 
 
 module.exports = Order

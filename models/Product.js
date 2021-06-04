@@ -43,6 +43,6 @@ ProductType.hasMany(Product)
 Product.belongsTo(Organization)
 Organization.hasMany(Product)
 
-// Product.sync({ force: true })
+// Product.sync({ force: true }) 
 
 module.exports = Product

@@ -33,6 +33,6 @@ Organization.hasMany(Review)
 Review.belongsTo(User)
 User.hasMany(Review)
 
-// Review.sync({ alter: true })
+// Review.sync({ alter: true }) 
 
 module.exports = Review

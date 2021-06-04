@@ -34,6 +34,6 @@ Order.hasMany(OrderLine)
 OrderLine.belongsTo(Product)
 Product.hasMany(OrderLine)
 
-// OrderLine.sync({ force: true })
+// OrderLine.sync({ force: true }) 
 
 module.exports = OrderLine

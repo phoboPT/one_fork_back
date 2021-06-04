@@ -22,11 +22,11 @@ router.get('/id/:id', async (req, res) => {
 })
 
 router.post('/create', async (req, res) => {
-    const { idUser, idTable, totalValue, totalValueTAx, state } = req.body
+    const { UserId, TableId, totalValue, totalValueTAx, state } = req.body
 
     Order.create({
-        idUser: idUser,
-        idTable: idTable,
+        UserId: UserId,
+        TableId: TableId,
         totalValue: totalValue,
         totalValueTAx: totalValueTAx,
         state: state
@@ -36,15 +36,15 @@ router.post('/create', async (req, res) => {
 })
 
 router.put('/update', async (req, res) => {
-    const { id, idUser, idTable, totalValue, totalValueTAx, state } = req.body
+    const { id, UserId, TableId, totalValue, totalValueTAx, state } = req.body
 
     if (id == undefined || id == "") {
         res.json({ error: "Error! An id must be provided!" })
     }
 
     const data = {
-        idUser: idUser,
-        idTable: idTable,
+        UserId: UserId,
+        TableId: TableId,
         totalValue: totalValue,
         totalValueTAx: totalValueTAx,
         state: state

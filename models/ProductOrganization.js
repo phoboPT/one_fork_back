@@ -34,6 +34,6 @@ const ProductOrganization = db.define('ProductOrganization', {
 
 Product.belongsToMany(Organization, { through: ProductOrganization })
 
-// ProductOrganization.sync({ alter: true })
+// ProductOrganization.sync({ alter: true }) 
 
 module.exports = ProductOrganization

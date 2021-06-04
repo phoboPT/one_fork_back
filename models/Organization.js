@@ -45,7 +45,7 @@ const Organization = db.define('Organization', {
 Organization.belongsTo(OrganizationType)
 OrganizationType.hasMany(Organization)
 
-// Organization.sync({ force: true })
+// Organization.sync({ force: true }) 
 
 
 module.exports = Organization
