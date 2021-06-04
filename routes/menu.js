@@ -20,7 +20,7 @@ router.get('/:id', async (req, res) => {
          
         })
         
-        res.json({ data: dados, data2: request})
+        res.json({ data: dados})
         
     } catch (error) {
         res.json({ error: error })

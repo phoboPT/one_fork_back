@@ -29,15 +29,16 @@ router.get('/id/:id', async (req, res) => {
 })
 
 router.post('/create', async (req, res) => {
-    const { ProductTypeId, name, description, tax, idOrganization } = req.body
+    const { ProductTypeId, name, description, TaxId, OrganizationId, image } = req.body
 
     try {
         const produt = await Product.create({
             ProductTypeId: ProductTypeId,
             name: name,
             description: description,
-            tax: tax,
-            idOrganization: idOrganization,
+            TaxId: TaxId,
+            OrganizationId: OrganizationId,
+            image: image
         })
         res.status(200).send({ data: produt })
     } catch (error) {
@@ -48,7 +49,7 @@ router.post('/create', async (req, res) => {
 })
 
 router.put('/update', async (req, res) => {
-    const { id, ProductTypeId, name, description, tax, idOrganization } = req.body
+    const { id, ProductTypeId, name, description, TaxId, OrganizationId, image } = req.body
     try {
         if (id == undefined || id == "") {
             res.status(401).send({ error: "Error! An id must be provided!" })
@@ -57,8 +58,9 @@ router.put('/update', async (req, res) => {
             ProductTypeId: ProductTypeId,
             name: name,
             description: description,
-            tax: tax,
-            idOrganization: idOrganization,
+            TaxId: TaxId,
+            OrganizationId: OrganizationId,
+            image: image
         }
 
         const productUpdated = await Product.update(data,
@@ -67,12 +69,13 @@ router.put('/update', async (req, res) => {
                     id: id
                 },
             })
-
-        if (productUpdated === 1) {
-
+            
+        if (productUpdated[0] === 1) {
             res.status(200).send({ data: "Updated sucessfuly" })
+        } else {
+            res.status(400).send({ error: "Error! Data cannot be updated!" })
         }
-        res.status(400).send({ error: "Error! Data cannot be updated!" })
+        
     } catch (error) {
         res.status(400).send({ error: "Error! Data cannot be updated!" })
     }

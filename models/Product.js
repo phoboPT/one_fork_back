@@ -10,14 +10,6 @@ const Product = db.define('Product', {
         primaryKey: true,
         defaultValue: DataTypes.UUIDV4
     },
-    // productType: {
-    //     type: DataTypes.UUID,
-    //     allowNull: false,
-    //     references: {
-    //         model: ProductType,
-    //         key: 'id'
-    //     }
-    // },
     name: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -26,6 +18,10 @@ const Product = db.define('Product', {
         type: DataTypes.STRING,
         allowNull: false
     },
+    image: {
+        type: DataTypes.STRING,
+        allowNull: true
+    }
 },
 )
 
