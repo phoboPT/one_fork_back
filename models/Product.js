@@ -26,14 +26,6 @@ const Product = db.define('Product', {
         type: DataTypes.STRING,
         allowNull: false
     },
-    tax: {
-        type: DataTypes.UUID,
-        allowNull: false,
-        references: {
-            model: Tax,
-            key: 'id'
-        }
-    },
 },
 )
 
@@ -43,6 +35,9 @@ ProductType.hasMany(Product)
 Product.belongsTo(Organization)
 Organization.hasMany(Product)
 
-// Product.sync({ force: true }) 
+Product.belongsTo(Tax)
+Tax.hasMany(Product)
+
+// Product.sync({ alter: true }) 
 
 module.exports = Product

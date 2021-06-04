@@ -2,6 +2,7 @@ const express = require('express');
 const Organization = require('../models/Organization');
 const Product = require('../models/Product');
 const ProductOrganization = require('../models/ProductOrganization');
+const ProductType = require('../models/ProductType');
 const router = express.Router()
 
 router.get('/:id', async (req, res) => {
@@ -9,20 +10,17 @@ router.get('/:id', async (req, res) => {
     try {
         const request = await ProductOrganization.findAll({
             where: { OrganizationId: id },
-            include: [Product, Organization]
+            include: [Product]
         })
         
         let dados = []
         request.map((valores) => {
-            
-            if(valores.dataValues.Product.dataValues.ProductTypeId === "dfc6f246-0e23-40c4-ab52-ac2450561aa8") {
-                dados.push({"dfc6f246-0e23-40c4-ab52-ac2450561aa8": valores.dataValues.Product.dataValues})
-            }
-            dados.push({ProductTypeId: valores.dataValues.Product.dataValues})
+            dados.push(valores.Product
+            )
          
         })
         
-        res.json({ organization: request[0].Organization, products: dados})
+        res.json({ data: dados, data2: request})
         
     } catch (error) {
         res.json({ error: error })
