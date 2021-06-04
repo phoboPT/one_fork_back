@@ -29,9 +29,15 @@ const IngredientProduct = db.define('IngredientProduct', {
 )
 
 Ingredient.belongsToMany(Product, { through: IngredientProduct })
+Product.belongsToMany(Ingredient, { through: IngredientProduct })
+
+IngredientProduct.belongsTo(Ingredient)
+Ingredient.hasMany(IngredientProduct)
+
+IngredientProduct.belongsTo(Product)
+Product.hasMany(IngredientProduct)
 
 
-
-// IngredientProduct.sync({ force: true }) 
+// IngredientProduct.sync({ alter: true }) 
 
 module.exports = IngredientProduct

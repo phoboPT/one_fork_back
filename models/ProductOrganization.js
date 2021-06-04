@@ -33,6 +33,13 @@ const ProductOrganization = db.define('ProductOrganization', {
 )
 
 Product.belongsToMany(Organization, { through: ProductOrganization })
+Organization.belongsToMany(Product, { through: ProductOrganization })
+
+ProductOrganization.belongsTo(Product)
+Product.hasMany(ProductOrganization)
+
+ProductOrganization.belongsTo(Organization)
+Organization.hasMany(ProductOrganization)
 
 // ProductOrganization.sync({ alter: true }) 
 
