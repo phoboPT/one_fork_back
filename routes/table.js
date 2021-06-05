@@ -5,10 +5,8 @@ const Table = require('../models/Table');
 
 
 router.get('/', async (req, res) => {
-    console.log("entra")
     try {
         const table = await Table.findAll()
-        
         res.status(200).send(table)
     } catch (error) {
         res.status(400).send(error)
@@ -41,14 +39,14 @@ router.post('/create', async (req, res) => {
 })
 
 router.put('/update', async (req, res) => {
-    const { id, idOrganization, name, description } = req.body
+    const { id, OrganizationId, name, description } = req.body
 
     if (id == undefined || id == "") {
         res.status(400).send({ error: "Error! An id must be provided!" })
     }
 
     const data = {
-        idOrganization: idOrganization,
+        OrganizationId: OrganizationId,
         name: name,
         description: description,
     }

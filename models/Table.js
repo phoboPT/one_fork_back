@@ -19,10 +19,10 @@ const Table = db.define('Table', {
 },
 )
 
-// Table.belongsTo(Organization)
-// Organization.hasMany(Table)
+Table.belongsTo(Organization)
+Organization.hasMany(Table)
 
 
-// Table.sync({ force: true }) 
+// Table.sync({ alter: true }) 
 
 module.exports = Table
