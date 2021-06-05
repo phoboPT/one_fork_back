@@ -24,12 +24,21 @@ router.get('/id/:id', async (req, res) => {
 router.post('/create', async (req, res) => {
     const { IngredientId, ProductId } = req.body
 
-    IngredientProduct.create({
-        IngredientId: IngredientId,
-        ProductId: ProductId
-    })
-        .then(status => res.json({ data: status }))
-        .catch(err => res.send(err))
+    await IngredientProduct.findAll({ where: { IngredientId: IngredientId, ProductId: ProductId, } })
+        .then(status => dados = status)
+        .catch(err => res.json({ error: "Error! This ingredient or product does not exists!" }))
+
+    if (dados != "") {
+        res.json({ error: "Error! This product already have this ingredient!" })
+    } else {
+        IngredientProduct.create({
+            IngredientId: IngredientId,
+            ProductId: ProductId
+        })
+            .then(status => res.json({ data: status }))
+            .catch(err => res.send(err))
+    }
+
 })
 
 router.put('/update', async (req, res) => {

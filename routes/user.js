@@ -13,7 +13,7 @@ router.get('/', async (req, res) => {
 
         res.status(200).send(user)
     } catch (error) {
-        res.status(400).send(error) 
+        res.status(400).send(error)
     }
 })
 
@@ -169,6 +169,33 @@ router.get('/me', async (req, res) => {
         res.status(401).send({ error: error })
     }
 
+})
+
+router.put('/disable', async (req, res) => {
+    const { token, id } = req.body
+    try {
+        if (!token) {
+            return res.json({ error: "Token must be provided!" })
+        }
+
+        const tokenData = await userPermission.verifyPermission(token)
+        console.log(tokenData[0])
+        if (tokenData[0] !== id) {
+            return res.json({ error: "Permission is required!" })
+        }
+
+        const data = {
+            active: 0
+        }
+        const userUpdated = await User.update(data, { where: { id: id }, })
+
+        if (userUpdated == 1) {
+            res.status(200).json({ data: "User disabled!" })
+        }
+        res.status(400).json({ error: "The user can not be updated!" })
+    } catch (err) {
+        res.json({ error: err })
+    }
 })
 
 module.exports = router
