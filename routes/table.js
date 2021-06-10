@@ -16,6 +16,7 @@ router.get('/', async (req, res) => {
 router.get('/id/:id', async (req, res) => {
     try {
         const table = await Table.findByPk(req.params.id)
+            .catch(err => res.json({error: "Error! Any table was find!"}))
         res.status(200).send({ data: table })
     } catch (error) {
         rres.status(400).send({ error: error })
